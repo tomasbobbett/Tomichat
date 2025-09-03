@@ -5,33 +5,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TomiChat</title>
+
+  <script type="module">
+    import { io } from "https://cdn.socket.io/4.5.4/socket.io.esm.min.js";
+    const socket = io();
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+    socket.on('chat message', (msg) => {
+      const item = `<li>${msg}</li>`;
+      messages.insertAdjacentHTML('beforeend', item);
+    })
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value){
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+  </script>
+
   <style>
     body{
       background-color: black;
       margin: 0;
+      color:white;
       font-family: sans-serif;
       display: flex;
+      flex-direction: column;
       justify-self: center;
       align-items: center;
       height: 100dvh;
     }
     
     #chat{
-
       border: 1px solid white;
       border-radius: 4px;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
       width: 400px;
       height: 90%;
       position: relative;
     }
+    form{
+      position:absolute;
+      display: flex;
+      bottom: 0;
+      left: 0;
+      padding: 4px;
+      right: 0;
+      height: 48px;
+    }
+    input{
+      flex: 1;
+      border: none;
+      border-radius: 9999px;
+      padding: 0 8px;
+      background-color: #2f2f2f;
+      color: white;
+      font-size: 16px;
+      
+    }
+    input::placeholder{
+      color: white;
+      text-align: center;
+    }
+    button{
+      border: none;
+      background-color: #48e;
+      color: white;
+      border-radius: 10px;
+      padding: 0 16px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    #messages{
+      list-style-type: none;
+      height: 100%;
+      margin: 0;
+      padding: 20px;
+      background-color: #4c4c4c;
+    }
+    #messages li{
+      padding: 6px 12px;
+     
+      border-radius: 50px;
+      background-color: #48e;
+      border: solid 1px white;
+      margin-bottom: 10px;
+      width: fit-content;
+    } 
+    .title{
+
+    }
   </style>
 </head>
 <body>
+  <h1 class="title">TomyChat</h1>
   <section id="chat">
-    <form action="">
-      <input id="input autocomplete="off" type="text" placeholder="Type a message..." />
-      <button type="sumbit">Enviar</button>
+    <ul id="messages"></ul>
+    <form id="form">
+      <input id="input" autocomplete="off" type="text" placeholder="Type a message..." />
+      <button type="submit">Enviar</button>
     </form>
   </section>
 </body>
