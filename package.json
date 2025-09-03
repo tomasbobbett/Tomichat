@@ -1,0 +1,25 @@
+{
+  "name": "tomichat",
+  "version": "1.0.0",
+  "description": "Live chat :)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch ./server/index.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomasbobbett/Tomichat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomasbobbett/Tomichat/issues"
+  },
+  "homepage": "https://github.com/tomasbobbett/Tomichat#readme",
+  "dependencies": {
+    "express": "5.1.0",
+    "morgan": "1.10.1"
+  }
+}
